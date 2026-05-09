@@ -22,7 +22,7 @@ Makine öğrenmesi, derin öğrenme veya önceden eğitilmiş model **kullanılm
 
 ---
 
-## Proje Gereksinimleri (Kurs Kuralları)
+## Proje Gereksinimleri 
 
 ### Uygulanan
 - Klasik / deterministik CV pipeline (OpenCV + NumPy + SciPy)
