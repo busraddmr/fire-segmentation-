@@ -16,7 +16,6 @@ Makine öğrenmesi, derin öğrenme veya önceden eğitilmiş model **kullanılm
 | Medyan IoU | %78.0 |
 | Maksimum IoU | %96.5 |
 | Ortalama Dice | **%83.9** |
-| IoU ≥ %70 olan görsel | 973 / 1327 |
 | IoU ≥ %80 olan görsel | 551 / 1327 |
 | Toplam test görseli | **1327** |
 
