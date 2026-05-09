@@ -199,7 +199,6 @@ print(f"  Ortalama IoU   : {ort_iou:.4f}  ({ort_iou*100:.1f}%)")
 print(f"  Medyan  IoU    : {med_iou:.4f}  ({med_iou*100:.1f}%)")
 print(f"  Max     IoU    : {max_iou:.4f}  ({max_iou*100:.1f}%)")
 print(f"  Ortalama Dice  : {ort_dice:.4f}  ({ort_dice*100:.1f}%)")
-print(f"  IoU >= 0.70    : {sum(1 for x in iou_list if x>=0.70)} gorsel")
 print(f"  IoU >= 0.80    : {sum(1 for x in iou_list if x>=0.80)} gorsel")
 print(f"{'='*55}")
 

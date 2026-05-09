@@ -227,14 +227,14 @@ def main():
     fig4, ax = plt.subplots(figsize=(10, 5))
     n, bins, patches2 = ax.hist(iou_list, bins=40, edgecolor="white", lw=.5)
     for patch, left in zip(patches2, bins):
-        patch.set_facecolor("#e74c3c" if left < .5 else "#f39c12" if left < .7 else "#2ecc71")
+        patch.set_facecolor("#e74c3c" if left < .5 else "#f39c12" if left < .8 else "#2ecc71")
     ort = np.mean(iou_list); med = np.median(iou_list)
     ax.axvline(ort, color="#2c3e50", ls="--", lw=2, label=f"Ort. IoU = {ort:.3f}")
     ax.axvline(med, color="#8e44ad", ls=":",  lw=2, label=f"Medyan IoU = {med:.3f}")
-    ax.axvline(.70, color="#27ae60", ls="-",  lw=1.5, alpha=.7,
-               label=f"Esik 0.70 ({sum(1 for x in iou_list if x>=.70)} gorsel)")
+    ax.axvline(.80, color="#27ae60", ls="-",  lw=1.5, alpha=.7,
+               label=f"Esik 0.80 ({sum(1 for x in iou_list if x>=.80)} gorsel)")
     ax.set_xlabel("IoU Degeri"); ax.set_ylabel("Gorsel Sayisi")
-    ax.set_title(f"BIM320 - IoU Dagilim Histogrami (N={len(iou_list)})\nKirmizi:<0.50 | Sari:0.50-0.70 | Yesil:>=0.70", fontsize=11, fontweight="bold")
+    ax.set_title(f"BIM320 - IoU Dagilim Histogrami (N={len(iou_list)})\nKirmizi:<0.50 | Sari:0.50-0.80 | Yesil:>=0.80", fontsize=11, fontweight="bold")
     ax.legend(fontsize=10); ax.set_xlim(0, 1)
     plt.tight_layout()
     fig4.savefig(str(REPORT_DIR / "iou_distribution.png"), dpi=120, bbox_inches="tight")
