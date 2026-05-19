@@ -9,3 +9,7 @@ venv/
 # IDE
 .vscode/
 .idea/
+
+# Rapor ve çıktılar
+*.pdf
+outputs/

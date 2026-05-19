@@ -168,6 +168,18 @@ def dice_hesapla(pred, gt):
     pb = pred > 127; gb = gt > 127
     return 2.0 * float(np.sum(pb & gb)) / (float(np.sum(pb)) + float(np.sum(gb)) + 1e-7)
 
+def precision_hesapla(pred, gt):
+    pb = pred > 127; gb = gt > 127
+    tp = float(np.sum(pb & gb))
+    fp = float(np.sum(pb & ~gb))
+    return tp / (tp + fp + 1e-7)
+
+def recall_hesapla(pred, gt):
+    pb = pred > 127; gb = gt > 127
+    tp = float(np.sum(pb & gb))
+    fn = float(np.sum(~pb & gb))
+    return tp / (tp + fn + 1e-7)
+
 # ===== ANA DEGERLENDIRME =====
 print("Goruntüler yükleniyor...")
 gorseller = sorted(IMAGES_DIR.glob("*.jpg"))
@@ -175,6 +187,8 @@ print(f"Toplam gorsel: {len(gorseller)}")
 
 iou_list  = []
 dice_list = []
+prec_list = []
+rec_list  = []
 
 for g in gorseller:
     img = cv2.imread(str(g))
@@ -186,20 +200,26 @@ for g in gorseller:
         gt = cv2.resize(gt, (pred.shape[1], pred.shape[0]))
     iou_list.append(iou_hesapla(pred, gt))
     dice_list.append(dice_hesapla(pred, gt))
+    prec_list.append(precision_hesapla(pred, gt))
+    rec_list.append(recall_hesapla(pred, gt))
 
 ort_iou  = float(np.mean(iou_list))
 ort_dice = float(np.mean(dice_list))
 med_iou  = float(np.median(iou_list))
 max_iou  = float(np.max(iou_list))
+ort_prec = float(np.mean(prec_list))
+ort_rec  = float(np.mean(rec_list))
 
 print(f"\n{'='*55}")
 print(f"  Dataset        : V1(IoU>0.70) + bitti/V3+V4(IoU>0.20)")
 print(f"  Gorsel sayisi  : {len(iou_list)}")
-print(f"  Ortalama IoU   : {ort_iou:.4f}  ({ort_iou*100:.1f}%)")
-print(f"  Medyan  IoU    : {med_iou:.4f}  ({med_iou*100:.1f}%)")
-print(f"  Max     IoU    : {max_iou:.4f}  ({max_iou*100:.1f}%)")
-print(f"  Ortalama Dice  : {ort_dice:.4f}  ({ort_dice*100:.1f}%)")
-print(f"  IoU >= 0.80    : {sum(1 for x in iou_list if x>=0.80)} gorsel")
+print(f"  Ortalama Precision : {ort_prec:.4f}  ({ort_prec*100:.1f}%)")
+print(f"  Ortalama Recall    : {ort_rec:.4f}  ({ort_rec*100:.1f}%)")
+print(f"  Ortalama F1/Dice   : {ort_dice:.4f}  ({ort_dice*100:.1f}%)")
+print(f"  Ortalama IoU       : {ort_iou:.4f}  ({ort_iou*100:.1f}%)")
+print(f"  Medyan  IoU        : {med_iou:.4f}  ({med_iou*100:.1f}%)")
+print(f"  Max     IoU        : {max_iou:.4f}  ({max_iou*100:.1f}%)")
+print(f"  IoU >= 0.80        : {sum(1 for x in iou_list if x>=0.80)} gorsel")
 print(f"{'='*55}")
 
 # ===== ORNEK GORSEL CIKTI (6 gorsel) =====
